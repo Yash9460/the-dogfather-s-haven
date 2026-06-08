@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import heroDog from "@/assets/hero-dog.jpg";
 import gallerySalon from "@/assets/gallery-salon.jpg";
 import galleryToys from "@/assets/gallery-toys.jpg";
@@ -101,27 +102,94 @@ function TestimonialCard({ t }: { t: (typeof testimonials)[number] }) {
   );
 }
 
+const navLinks = [
+  { label: "Services", href: "#services" },
+  { label: "Shop", href: "/shop", isLink: true },
+  { label: "Gallery", href: "#gallery" },
+  { label: "Reviews", href: "#reviews" },
+  { label: "Visit", href: "#visit" },
+];
+
 function Index() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="bg-brand-cream text-brand-dark font-body min-h-screen selection:bg-brand-teal/30">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-brand-cream/80 backdrop-blur-md border-b border-brand-dark/5 px-6 py-4 flex justify-between items-center">
-        <a href="#top" className="font-display text-2xl tracking-tight flex items-center gap-2 font-extrabold">
-          <span className="text-brand-teal">THE</span>DOGFATHER
-        </a>
-        <div className="hidden md:flex gap-8 text-sm font-semibold uppercase tracking-wider">
-          <a href="#services" className="hover:text-brand-teal transition-colors">Services</a>
-          <Link to="/shop" className="hover:text-brand-teal transition-colors">Shop</Link>
-          <a href="#gallery" className="hover:text-brand-teal transition-colors">Gallery</a>
-          <a href="#reviews" className="hover:text-brand-teal transition-colors">Reviews</a>
-          <a href="#visit" className="hover:text-brand-teal transition-colors">Visit</a>
+      <nav className="sticky top-0 z-50 bg-brand-cream/80 backdrop-blur-md border-b border-brand-dark/5 px-6 py-4">
+        <div className="flex justify-between items-center">
+          <a href="#top" className="font-display text-2xl tracking-tight flex items-center gap-2 font-extrabold">
+            <span className="text-brand-teal">THE</span>DOGFATHER
+          </a>
+
+          {/* Desktop links */}
+          <div className="hidden md:flex gap-8 text-sm font-semibold uppercase tracking-wider">
+            {navLinks.map((link) =>
+              link.isLink ? (
+                <Link key={link.label} to="/shop" className="hover:text-brand-teal transition-colors">
+                  {link.label}
+                </Link>
+              ) : (
+                <a key={link.label} href={link.href} className="hover:text-brand-teal transition-colors">
+                  {link.label}
+                </a>
+              )
+            )}
+          </div>
+
+          <div className="flex items-center gap-3">
+            <a
+              href="tel:9672502244"
+              className="bg-brand-teal text-white px-5 py-2.5 rounded-full text-sm font-bold hover:scale-105 transition-transform active:scale-95 shadow-lg shadow-brand-teal/20"
+            >
+              Call Now
+            </a>
+            {/* Hamburger button — mobile only */}
+            <button
+              className="md:hidden flex flex-col justify-center items-center size-10 gap-1.5"
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+            >
+              <span
+                className={`block h-0.5 w-6 bg-brand-dark rounded transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
+              />
+              <span
+                className={`block h-0.5 w-6 bg-brand-dark rounded transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
+              />
+              <span
+                className={`block h-0.5 w-6 bg-brand-dark rounded transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+              />
+            </button>
+          </div>
         </div>
-        <a
-          href="tel:9672502244"
-          className="bg-brand-teal text-white px-5 py-2.5 rounded-full text-sm font-bold hover:scale-105 transition-transform active:scale-95 shadow-lg shadow-brand-teal/20"
-        >
-          Call Now
-        </a>
+
+        {/* Mobile dropdown menu */}
+        {menuOpen && (
+          <div className="md:hidden mt-4 pb-4 border-t border-brand-dark/10 pt-4 flex flex-col gap-4">
+            {navLinks.map((link) =>
+              link.isLink ? (
+                <Link
+                  key={link.label}
+                  to="/shop"
+                  className="text-sm font-semibold uppercase tracking-wider hover:text-brand-teal transition-colors"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-sm font-semibold uppercase tracking-wider hover:text-brand-teal transition-colors"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              )
+            )}
+          </div>
+        )}
       </nav>
 
       {/* Hero */}
