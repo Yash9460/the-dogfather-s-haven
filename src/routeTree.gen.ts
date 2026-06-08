@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
+import { Route as ShopCategoryRouteImport } from './routes/shop.$category'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -28,34 +29,43 @@ const ShopIndexRoute = ShopIndexRouteImport.update({
   path: '/shop/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShopCategoryRoute = ShopCategoryRouteImport.update({
+  id: '/shop/$category',
+  path: '/shop/$category',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/shop/$category': typeof ShopCategoryRoute
   '/shop/': typeof ShopIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/shop/$category': typeof ShopCategoryRoute
   '/shop': typeof ShopIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/shop/$category': typeof ShopCategoryRoute
   '/shop/': typeof ShopIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sitemap.xml' | '/shop/'
+  fullPaths: '/' | '/sitemap.xml' | '/shop/$category' | '/shop/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sitemap.xml' | '/shop'
-  id: '__root__' | '/' | '/sitemap.xml' | '/shop/'
+  to: '/' | '/sitemap.xml' | '/shop/$category' | '/shop'
+  id: '__root__' | '/' | '/sitemap.xml' | '/shop/$category' | '/shop/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ShopCategoryRoute: typeof ShopCategoryRoute
   ShopIndexRoute: typeof ShopIndexRoute
 }
 
@@ -82,12 +92,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shop/$category': {
+      id: '/shop/$category'
+      path: '/shop/$category'
+      fullPath: '/shop/$category'
+      preLoaderRoute: typeof ShopCategoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ShopCategoryRoute: ShopCategoryRoute,
   ShopIndexRoute: ShopIndexRoute,
 }
 export const routeTree = rootRouteImport
