@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import heroDog from "@/assets/hero-dog.jpg";
 import gallerySalon from "@/assets/gallery-salon.jpg";
 import galleryToys from "@/assets/gallery-toys.jpg";
@@ -131,6 +131,7 @@ function Index() {
         </a>
         <div className="hidden md:flex gap-8 text-sm font-semibold uppercase tracking-wider">
           <a href="#services" className="hover:text-brand-teal transition-colors">Services</a>
+          <Link to="/shop" className="hover:text-brand-teal transition-colors">Shop</Link>
           <a href="#gallery" className="hover:text-brand-teal transition-colors">Gallery</a>
           <a href="#reviews" className="hover:text-brand-teal transition-colors">Reviews</a>
           <a href="#visit" className="hover:text-brand-teal transition-colors">Visit</a>
