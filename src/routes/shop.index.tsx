@@ -2,23 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { categories } from "@/lib/shop-data";
 
 export const Route = createFileRoute("/shop/")({
-  head: () => ({
-    meta: [
-      { title: "Shop — Pet Food, Treats, Toys & Accessories | The Dogfather Jaipur" },
-      {
-        name: "description",
-        content:
-          "Shop premium dog food, cat food, treats, toys and accessories at The Dogfather in Raja Park, Jaipur. Hand-picked for quality and nutrition.",
-      },
-      { property: "og:title", content: "Shop Pet Essentials | The Dogfather Jaipur" },
-      {
-        property: "og:description",
-        content:
-          "Browse dog food, cat food, treats, toys and accessories — all under one roof in Raja Park, Jaipur.",
-      },
-      { property: "og:type", content: "website" },
-    ],
-  }),
   component: ShopIndex,
 });
 

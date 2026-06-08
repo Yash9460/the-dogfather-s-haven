@@ -1,28 +1,7 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { getCategory, categories, type Category, type Product } from "@/lib/shop-data";
 
 export const Route = createFileRoute("/shop/$category")({
-  loader: ({ params }) => {
-    const category = getCategory(params.category);
-    if (!category) throw notFound();
-    return { category };
-  },
-  head: ({ loaderData }) => {
-    const cat = loaderData?.category;
-    if (!cat) return { meta: [{ title: "Shop | The Dogfather Jaipur" }] };
-    return {
-      meta: [
-        { title: `${cat.name} — Shop at The Dogfather, Raja Park Jaipur` },
-        { name: "description", content: cat.description },
-        { property: "og:title", content: `${cat.name} | The Dogfather Jaipur` },
-        { property: "og:description", content: cat.description },
-        { property: "og:type", content: "website" },
-        { property: "og:image", content: cat.cover },
-        { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:image", content: cat.cover },
-      ],
-    };
-  },
   component: CategoryPage,
   notFoundComponent: CategoryNotFound,
   errorComponent: CategoryError,
@@ -53,7 +32,10 @@ function CategoryNav({ activeSlug }: { activeSlug?: string }) {
 }
 
 function CategoryPage() {
-  const { category } = Route.useLoaderData();
+  const { category: categorySlug } = useParams({ from: "/shop/$category" });
+  const category = getCategory(categorySlug);
+
+  if (!category) return <CategoryNotFound />;
 
   return (
     <div className="bg-brand-cream text-brand-dark font-body min-h-screen selection:bg-brand-teal/30">

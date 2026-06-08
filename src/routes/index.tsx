@@ -6,26 +6,6 @@ import galleryTreats from "@/assets/gallery-treats.jpg";
 import galleryAccessories from "@/assets/gallery-accessories.jpg";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "The Dogfather — Premium Pet Care & Grooming in Raja Park, Jaipur" },
-      {
-        name: "description",
-        content:
-          "The Dogfather in Raja Park, Jaipur: premium dog & cat food, treats, toys, accessories, professional grooming salon, boarding & training. Your pet deserves the best.",
-      },
-      { property: "og:title", content: "The Dogfather — Premium Pet Care in Jaipur" },
-      {
-        property: "og:description",
-        content:
-          "Complete pet care destination in Raja Park, Jaipur. Grooming salon, premium food, boarding & training — all under one roof.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:image", content: heroDog },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: heroDog },
-    ],
-  }),
   component: Index,
 });
 
