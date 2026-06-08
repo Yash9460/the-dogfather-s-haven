@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { getCategory, categories, type Category } from "@/lib/shop-data";
+import { getCategory, categories, type Category, type Product } from "@/lib/shop-data";
 
 export const Route = createFileRoute("/shop/$category")({
   loader: ({ params }) => {
@@ -102,7 +102,7 @@ function CategoryPage() {
       {/* Product grid */}
       <section className="max-w-7xl mx-auto px-6 pb-16">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {category.products.map((p) => (
+          {category.products.map((p: Product) => (
             <article
               key={p.name}
               className="group bg-card rounded-3xl border border-brand-dark/5 overflow-hidden shadow-sm hover:shadow-xl transition-all"
